@@ -29,6 +29,7 @@ dependencies = [
     "ruamel-yaml>=0.18.10",
     "ruff>=0.8.6",
     "scipy>=1.14.1",
+    "yandexcloud>=0.394.0",
     "sherpa-onnx>=1.10.39",
     "soundfile>=0.12.1",
     "tomli>=2.2.1",
