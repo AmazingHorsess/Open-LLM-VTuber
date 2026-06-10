@@ -211,6 +211,17 @@ class TTSFactory:
                 normalize_audio=kwargs.get("normalize_audio"),
                 use_cuda=kwargs.get("use_cuda"),
             )
+        elif engine_type == "yandex_tts":
+            from .yandex_tts import TTSEngine as YandexTTSEngine
+
+            return YandexTTSEngine(
+                api_key=kwargs.get("api_key"),
+                voice=kwargs.get("voice", "alena"),
+                lang=kwargs.get("lang", "ru-RU"),
+                speed=kwargs.get("speed", 1.0),
+                emotion=kwargs.get("emotion", "neutral"),
+                folder_id=kwargs.get("folder_id", ""),
+            )
         else:
             raise ValueError(f"Unknown TTS engine type: {engine_type}")
 

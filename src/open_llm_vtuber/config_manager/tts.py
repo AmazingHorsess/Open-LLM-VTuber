@@ -680,6 +680,29 @@ class CartesiaTTSConfig(I18nMixin):
     }
 
 
+class YandexTTSConfig(I18nMixin):
+    """Configuration for Yandex SpeechKit TTS."""
+
+    api_key: str = Field(..., alias="api_key")
+    voice: str = Field("alena", alias="voice")
+    lang: str = Field("ru-RU", alias="lang")
+    speed: float = Field(1.0, alias="speed")
+    emotion: str = Field("neutral", alias="emotion")
+    folder_id: str = Field("", alias="folder_id")
+
+    DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
+        "api_key": Description(en="Yandex Cloud API key", zh="Yandex Cloud API 密钥"),
+        "voice": Description(
+            en="Voice name (e.g., alena, filipp, ermil, jane, madirus, omazh, zahar)",
+            zh="语音名称（如 alena, filipp）",
+        ),
+        "lang": Description(en="Language code (ru-RU, en-US, kk-KK, de-DE, uz-UZ)", zh="语言代码"),
+        "speed": Description(en="Speech speed (0.1–3.0)", zh="语速（0.1–3.0）"),
+        "emotion": Description(en="Emotion (neutral, good, evil)", zh="情感（neutral, good, evil）"),
+        "folder_id": Description(en="Yandex Cloud folder ID (optional)", zh="Yandex Cloud 文件夹 ID（可选）"),
+    }
+
+
 class TTSConfig(I18nMixin):
     """Configuration for Text-to-Speech."""
 
@@ -702,6 +725,7 @@ class TTSConfig(I18nMixin):
         "elevenlabs_tts",
         "cartesia_tts",
         "piper_tts",
+        "yandex_tts",
     ] = Field(..., alias="tts_model")
 
     azure_tts: Optional[AzureTTSConfig] = Field(None, alias="azure_tts")
@@ -726,6 +750,7 @@ class TTSConfig(I18nMixin):
     elevenlabs_tts: ElevenLabsTTSConfig | None = Field(None, alias="elevenlabs_tts")
     cartesia_tts: CartesiaTTSConfig | None = Field(None, alias="cartesia_tts")
     piper_tts: Optional[PiperTTSConfig] = Field(None, alias="piper_tts")
+    yandex_tts: Optional[YandexTTSConfig] = Field(None, alias="yandex_tts")
 
     DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
         "tts_model": Description(
@@ -769,6 +794,9 @@ class TTSConfig(I18nMixin):
             en="Configuration for Cartesia TTS", zh="Cartesia TTS 配置"
         ),
         "piper_tts": Description(en="Configuration for Piper TTS", zh="Piper TTS 配置"),
+        "yandex_tts": Description(
+            en="Configuration for Yandex SpeechKit TTS", zh="Yandex SpeechKit TTS 配置"
+        ),
     }
 
     @model_validator(mode="after")

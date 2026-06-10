@@ -58,5 +58,13 @@ class ASRFactory:
             from .sherpa_onnx_asr import VoiceRecognition as SherpaOnnxASR
 
             return SherpaOnnxASR(**kwargs)
+        elif system_name == "yandex_asr":
+            from .yandex_asr import VoiceRecognition as YandexASR
+
+            return YandexASR(
+                api_key=kwargs.get("api_key"),
+                lang=kwargs.get("lang", "ru-RU"),
+                folder_id=kwargs.get("folder_id", ""),
+            )
         else:
             raise ValueError(f"Unknown ASR system: {system_name}")

@@ -307,6 +307,20 @@ class SherpaOnnxASRConfig(I18nMixin):
         return values
 
 
+class YandexASRConfig(I18nMixin):
+    """Configuration for Yandex SpeechKit ASR."""
+
+    api_key: str = Field(..., alias="api_key")
+    lang: str = Field("ru-RU", alias="lang")
+    folder_id: str = Field("", alias="folder_id")
+
+    DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
+        "api_key": Description(en="Yandex Cloud API key", zh="Yandex Cloud API 密钥"),
+        "lang": Description(en="Language code (ru-RU, en-US, kk-KK, de-DE, uz-UZ)", zh="语言代码"),
+        "folder_id": Description(en="Yandex Cloud folder ID (optional)", zh="Yandex Cloud 文件夹 ID（可选）"),
+    }
+
+
 class ASRConfig(I18nMixin):
     """Configuration for Automatic Speech Recognition."""
 
@@ -318,6 +332,7 @@ class ASRConfig(I18nMixin):
         "fun_asr",
         "groq_whisper_asr",
         "sherpa_onnx_asr",
+        "yandex_asr",
     ] = Field(..., alias="asr_model")
     azure_asr: Optional[AzureASRConfig] = Field(None, alias="azure_asr")
     faster_whisper: Optional[FasterWhisperConfig] = Field(None, alias="faster_whisper")
@@ -330,6 +345,7 @@ class ASRConfig(I18nMixin):
     sherpa_onnx_asr: Optional[SherpaOnnxASRConfig] = Field(
         None, alias="sherpa_onnx_asr"
     )
+    yandex_asr: Optional[YandexASRConfig] = Field(None, alias="yandex_asr")
 
     DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
         "asr_model": Description(
@@ -349,6 +365,9 @@ class ASRConfig(I18nMixin):
         ),
         "sherpa_onnx_asr": Description(
             en="Configuration for Sherpa Onnx ASR", zh="Sherpa Onnx ASR 配置"
+        ),
+        "yandex_asr": Description(
+            en="Configuration for Yandex SpeechKit ASR", zh="Yandex SpeechKit ASR 配置"
         ),
     }
 
