@@ -67,6 +67,7 @@ class VoiceRecognition(ASRInterface):
             responses = stub.RecognizeStreaming(
                 self._request_iter(audio_bytes),
                 metadata=self._metadata(),
+                timeout=15,
             )
 
             text = ""
